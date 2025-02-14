@@ -76,6 +76,16 @@ foreach ($modinfo->get_sections() as $sectionnum => $section) {
 }
 core_collator::asort($activitytypes);
 
+if(!isset($urlparams['activitytype']) && sizeof($activitytypes) >= 2){
+    $types = array_keys($activitytypes);
+    $activitytype = $types[0];
+    if($activitytype === 'all'){
+        $activitytype = $types[1];
+    }
+    
+    $urlparams['activitytype'] = $activitytype;
+}
+
 // Creating the form.
 $baseurl = new moodle_url('/report/editdates/index.php', array('id' => $id));
 $mform = new report_editdates_form($baseurl, array('modinfo' => $modinfo,
